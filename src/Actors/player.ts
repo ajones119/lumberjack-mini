@@ -1,4 +1,4 @@
-import { Actor, Animation, clamp, Collider, CollisionContact, CollisionType, Color, Engine, EventEmitter, Font, GameEvent, Keys, Label, Side, SpriteSheet, Timer, vec } from "excalibur";
+import { Actor, Animation, clamp, Collider, CollisionContact, CollisionType, Color, Engine, EventEmitter, Font, GameEvent, Keys, Label, Side, SpriteSheet, vec } from "excalibur";
 import { Resources } from "../resources";
 import { Ground } from "./ground";
 import { Config } from "../config";

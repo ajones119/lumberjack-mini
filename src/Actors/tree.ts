@@ -1,7 +1,6 @@
-import { ActionSequence, Actor, Color, Engine, Font, GameEvent, Label, ParallelActions, Rectangle, RotationType, Shape, Timer, vec, Vector } from "excalibur";
+import { ActionSequence, Actor, Color, Engine, Font, Label, ParallelActions, RotationType, Shape, Timer, vec, Vector } from "excalibur";
 import { Config } from "../config";
 import { Resources } from "../resources";
-import { MyLevel } from "../level";
 
 export class Tree extends Actor {
     private health = 0;
@@ -27,7 +26,6 @@ export class Tree extends Actor {
         treeImage.destSize.height = Config.TreeHeight;
         this.graphics.use(treeImage);
 
-        //this.on('exitviewport', () => this.kill())
 
         //timer for heal over time
         const healTimer = new Timer({

@@ -1,6 +1,4 @@
-import { Color, Engine, EventEmitter, Font, GameEvent, Label, ScreenElement, vec } from "excalibur";
-import { Player } from "../Actors/player";
-import { Resources } from "../resources";
+import { Color, Engine, Font, Label, ScreenElement } from "excalibur";
 
 export class Score extends ScreenElement {
     public score = 0;

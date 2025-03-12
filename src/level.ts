@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Color, DefaultLoader, Engine, EventEmitter, ExcaliburGraphicsContext, GameEvent, Random, Scene, SceneActivationContext, vec } from "excalibur";
+import { Actor, CollisionType, Color, DefaultLoader, Engine, ExcaliburGraphicsContext, Random, Scene, SceneActivationContext, vec } from "excalibur";
 import { Player } from "./Actors/player";
 import { Ground } from "./Actors/ground";
 import { Config } from "./config";
