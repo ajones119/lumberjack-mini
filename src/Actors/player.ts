@@ -33,7 +33,7 @@ export class Player extends Actor {
   isJumping = false;
   isGrounded = false;
   isAttacking = false;
-  health = 10;
+  health = 1;
 
   maxHorizontalVelocity = Config.MaxSpeed;
   horizontalVelocityIncrement = Config.xVelocity;
@@ -143,6 +143,7 @@ export class Player extends Actor {
   this.graphics.use('idle')
 
     engine.input.pointers.primary.on('down', () => {
+      console.log('attack')
       this.attack();
     });
 
@@ -151,6 +152,10 @@ export class Player extends Actor {
     this.events.on('score', (event) => {
       this.scoreLabel.addScore(event.score);
     });
+
+    this.events.on('kill', () => {
+      engine.remove(this.scoreLabel)
+    })
   }
 
   override onPreUpdate(engine: Engine, elapsedMs: number): void {

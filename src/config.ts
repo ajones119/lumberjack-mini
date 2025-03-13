@@ -3,7 +3,7 @@ export const Config = {
     TreeInterval: 2000,
     WolfInterval: 10000,
     Gravity: 800,
-    Friction: 0.5,
+    Friction: 0.1,
     MaxSpeed: 500,
     xVelocity: 5 ,
     yVelocity: 400,

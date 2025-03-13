@@ -1,4 +1,4 @@
-import { Actor, Color, Engine, Font, Label, Scene, vec } from "excalibur";
+import { Actor, Color, Engine, Font, Label, Scene, SceneActivationContext, vec } from "excalibur";
 
 export class GameOverScene extends Scene {
   onInitialize(engine: Engine) {
@@ -54,5 +54,9 @@ export class GameOverScene extends Scene {
 
     onActivate() {
         this.engine.backgroundColor = Color.Black;
+    }
+
+    onDeactivate(context: SceneActivationContext): void {
+        this.clear();
     }
 }

@@ -25,7 +25,7 @@ export class Score extends ScreenElement {
     }
 
     private setLabel() {
-        this.label.text = `score: ${this.score}`
+        this.label.text = `Score: ${this.score}`
     }
 
     public setScore(score: number) {

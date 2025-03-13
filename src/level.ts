@@ -9,11 +9,8 @@ import { Resources } from "./resources";
 
 
 export class MyLevel extends Scene {
-
     ground!: Ground;
     random = new Random();
-    score: number = 0;
-    best: number = 0;
     player!: Player;    
 
     treeFactory!: TreeFactory;
@@ -25,11 +22,18 @@ export class MyLevel extends Scene {
     }
 
     override onActivate(context: SceneActivationContext<unknown>): void {
+        console.log('activate')
         this.createScene(this.engine);
     }
 
     createScene (engine: Engine) {
-        this.clear()
+        console.log('create')
+        this.clear();
+
+        console.log('actor', this.player);
+        //how many actors re player
+        console.log(this.actors.filter(actor => actor instanceof Player).length)
+        
         this.background = new Actor({
             pos: vec(engine.drawWidth / 2, engine.drawHeight / 2),
             anchor: vec(0.5, 0.5),
@@ -90,7 +94,6 @@ export class MyLevel extends Scene {
         // Add walls to the game
         walls.forEach(wall => this.add(wall));
 
-
         this.player = new Player(engine);
         this.add(this.player); // Actors need to be added to a scene to be drawn
         this.add(new HealthBar());
@@ -111,7 +114,7 @@ export class MyLevel extends Scene {
     triggerGameOver() {
         this.treeFactory.stop();
         this.wolfFactory.stop();
-        this.engine.goToScene('gameOver')
+        this.engine.goToScene('gameOver');
     }
 
     override onPreLoad(loader: DefaultLoader): void {
@@ -123,7 +126,6 @@ export class MyLevel extends Scene {
         // Only 1 scene is active at a time
         this.treeFactory.reset();
         this.wolfFactory.reset();
-
         this.clear();
     }
 
