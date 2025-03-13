@@ -5,7 +5,7 @@ export const Config = {
     Gravity: 800,
     Friction: 0.1,
     MaxSpeed: 500,
-    xVelocity: 5 ,
+    xVelocity: 10 ,
     yVelocity: 400,
     GroundHeight: 64,
     PlayerAnimationSpeed: 100,

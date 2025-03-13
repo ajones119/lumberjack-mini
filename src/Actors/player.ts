@@ -33,7 +33,7 @@ export class Player extends Actor {
   isJumping = false;
   isGrounded = false;
   isAttacking = false;
-  health = 1;
+  health = 10;
 
   maxHorizontalVelocity = Config.MaxSpeed;
   horizontalVelocityIncrement = Config.xVelocity;
