@@ -1,4 +1,5 @@
 import { Actor, Color, Engine, Font, Label, Scene, SceneActivationContext, vec } from "excalibur";
+import { MyLevel } from "./level";
 
 export class GameOverScene extends Scene {
   onInitialize(engine: Engine) {
@@ -45,6 +46,8 @@ export class GameOverScene extends Scene {
 
     // Restart button click event
     restartButton.on("pointerup", () => {
+        engine.removeScene('start');
+        engine.addScene('start', new MyLevel());
         engine.goToScene("start"); // Go back to main level
     });
 

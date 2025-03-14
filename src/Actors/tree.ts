@@ -1,4 +1,4 @@
-import { ActionSequence, Actor, Color, Engine, Font, Label, ParallelActions, RotationType, Shape, Timer, vec, Vector } from "excalibur";
+import { ActionSequence, Actor, Color, Engine, ParallelActions, RotationType, Shape, Timer, vec, Vector } from "excalibur";
 import { Config } from "../config";
 import { Resources } from "../resources";
 
@@ -72,20 +72,6 @@ export class Tree extends Actor {
 
         } else {
             this.shake();
-            const jitter = Math.random() * 50 - 25;
-            const label = new Label({
-                text: `-${damage}`,
-                x: this.pos.x + jitter,
-                y: this.pos.y - 20,
-                z: 1,
-                font: new Font({
-                    size: 12,
-                    color: Color.Red
-                })
-            })
-    
-            this.scene?.add(label);
-            label.actions.moveBy(0, -50, 20).die();
         }
 
         return scoredPoints;

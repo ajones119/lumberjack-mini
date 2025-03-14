@@ -1,4 +1,4 @@
-import { Actor, Animation, clamp, Collider, CollisionContact, CollisionType, Color, Engine, EventEmitter, Font, GameEvent, Keys, Label, Side, SpriteSheet, vec } from "excalibur";
+import { Actor, Animation, clamp, Collider, CollisionContact, CollisionType, Color, Engine, EventEmitter, Font, GameEvent, Keys, Label, Scene, Side, SpriteSheet, vec } from "excalibur";
 import { Resources } from "../resources";
 import { Ground } from "./ground";
 import { Config } from "../config";
@@ -30,10 +30,10 @@ export class Player extends Actor {
   //state
   public events = new EventEmitter<ex.ActorEvents & PlayerEvents>();
   direction: Direction = "idle";
-  isJumping = false;
   isGrounded = false;
   isAttacking = false;
   health = 10;
+  private collidedWith: {[key: number]: Tree} = {};
 
   maxHorizontalVelocity = Config.MaxSpeed;
   horizontalVelocityIncrement = Config.xVelocity;
@@ -142,12 +142,9 @@ export class Player extends Actor {
 
   this.graphics.use('idle')
 
-    engine.input.pointers.primary.on('down', () => {
-      console.log('attack')
-      this.attack();
-    });
+  engine.input.pointers.primary.on('down',  this.attack);
 
-    engine.add(this.scoreLabel);
+  engine.add(this.scoreLabel);
 
     this.events.on('score', (event) => {
       this.scoreLabel.addScore(event.score);
@@ -156,6 +153,12 @@ export class Player extends Actor {
     this.events.on('kill', () => {
       engine.remove(this.scoreLabel)
     })
+  }
+
+  override onPostKill(scene: Scene): void {
+    scene.engine.input.pointers.primary.off('down',  this.attack);
+    scene.engine.remove(this.scoreLabel)
+
   }
 
   override onPreUpdate(engine: Engine, elapsedMs: number): void {
@@ -201,7 +204,7 @@ export class Player extends Actor {
     if (this.isAttacking) {
       this.graphics.use(this.attack1Animation);
       return;
-    } else if (this.isJumping) {
+    } else if (!this.isGrounded) {
       this.graphics.use('jump');
       return;
     } else if (Math.abs(this.vel.x) < 20) {
@@ -215,8 +218,7 @@ export class Player extends Actor {
       return;
     }
   }
-  private collidedWith: {[key: number]: Tree} = {};
-  attack() {
+  private attack = () => {
     let scoredInAttack = 0;
     this.actions.callMethod(() => {
       this.isAttacking = true;
@@ -261,7 +263,6 @@ export class Player extends Actor {
     if (other.owner instanceof Ground) {
       this.vel.y = 0;
       //this.pos.y = 500;
-      this.isJumping = false;
       this.isGrounded = true;
     } else if (other.owner instanceof Tree) {
       this.collidedWith[other.owner.id] = other.owner;

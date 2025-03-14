@@ -6,6 +6,7 @@ import { TreeFactory } from "./Factories/tree-factory";
 import { WolfFactory } from "./Factories/wolf-factory";
 import { HealthBar } from "./ui/Health";
 import { Resources } from "./resources";
+import { GameOverScene } from "./gameOver";
 
 
 export class MyLevel extends Scene {
@@ -18,7 +19,13 @@ export class MyLevel extends Scene {
 
     background!: Actor;
 
+    constructor() {
+        super();
+        
+    }
+
     override onInitialize(engine: Engine): void {
+        this.player = new Player(this.engine);
     }
 
     override onActivate(context: SceneActivationContext<unknown>): void {
@@ -94,7 +101,7 @@ export class MyLevel extends Scene {
         // Add walls to the game
         walls.forEach(wall => this.add(wall));
 
-        this.player = new Player(engine);
+        
         this.add(this.player); // Actors need to be added to a scene to be drawn
         this.add(new HealthBar());
 
@@ -114,7 +121,9 @@ export class MyLevel extends Scene {
     triggerGameOver() {
         this.treeFactory.stop();
         this.wolfFactory.stop();
-        this.engine.goToScene('gameOver');
+        this.engine.removeScene('gameOver');
+        this.engine.addScene('gameOver', new GameOverScene());
+        this.engine.goToScene("gameOver"); // Go back to main level
     }
 
     override onPreLoad(loader: DefaultLoader): void {
